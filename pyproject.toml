@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "aichat"
+version = "0.1.0"
+description = ""
+authors = ["olegvallas <oleg.vallas@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.98.0"
+uvicorn = "^0.22.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
