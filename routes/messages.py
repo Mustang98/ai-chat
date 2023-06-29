@@ -37,7 +37,7 @@ async def create_message(message: MessageCreate, session: AsyncSession = Depends
         await session.commit()
 
         # Generate bot reply
-        bot_reply_content = generate_response(message.content, dialogue.character.name)
+        bot_reply_content = generate_response(message.content, "Ariana")
         bot_message_orm = Message(content=bot_reply_content, dialogue_id=message.dialogue_id, sender_type="bot")
         session.add(bot_message_orm)
         await session.commit()
