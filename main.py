@@ -14,7 +14,7 @@ app.include_router(characters.router)
 app.include_router(dialogues.router)
 app.include_router(messages.router)
 
-app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
+app.mount("/", StaticFiles(directory="frontend"), name="frontend")
 
 
 # Serve the index.html file as the root path
