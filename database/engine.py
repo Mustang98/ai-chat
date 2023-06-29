@@ -11,7 +11,7 @@ from sqlalchemy.orm import sessionmaker
 database_url = os.environ.get("DATABASE_URL")
 
 # Creating the async SQLAlchemy engine
-engine = create_async_engine(database_url, echo=True)
+engine = create_async_engine(database_url, echo=True, future=True)
 
 # Creating the async session maker
 session_maker = sessionmaker(engine, class_=sqlalchemy.orm.AsyncSession, expire_on_commit=False)
