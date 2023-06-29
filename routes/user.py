@@ -2,7 +2,7 @@
 Endpoints for user related operations.
 """
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.exc import IntegrityError, SQLAlchemyError
+from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from database.engine import get_session
@@ -30,6 +30,6 @@ async def create_user(session: AsyncSession = Depends(get_session)) -> UserRead:
     except SQLAlchemyError:
         await session.rollback()
         raise HTTPException(
-            status_code=400,
+            status_code=500,
             detail="Database error while creating new user",
         )

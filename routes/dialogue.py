@@ -1,13 +1,13 @@
 """
 Endpoints for dialogue related operations.
 """
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 
 from database.engine import get_session
-from database.orm_models import Dialogue
+from database.orm_models import Dialogue, User, Character
 from structures.dialogue import DialogueCreate, DialogueRead
 from structures.message import MessageRead
 
@@ -25,6 +25,22 @@ async def create_or_read_dialogue(dialogue_create: DialogueCreate, session: Asyn
     :return: information about dialogue and its messages.
     """
     try:
+        # Check if the user exists
+        user = await session.get(User, dialogue_create.user_id)
+        if user is None:
+            raise HTTPException(
+                status_code=400,
+                detail=f"User with id={dialogue_create.user_id} doesn't exist",
+            )
+
+        # Check if the character exists
+        character = await session.get(Character, dialogue_create.character_id)
+        if character is None:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Character with id={dialogue_create.character_id} doesn't exist",
+            )
+
         # Check if the dialogue already exists
         dialogue = (
             await session.execute(
@@ -59,6 +75,9 @@ async def create_or_read_dialogue(dialogue_create: DialogueCreate, session: Asyn
             )
     except SQLAlchemyError:
         await session.rollback()
-        return {"id": None, "messages": []}
+        raise HTTPException(
+            status_code=500,
+            detail="Database error while creating new dialogue",
+        )
 
 
