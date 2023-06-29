@@ -9,7 +9,7 @@ from database.engine import get_session
 from structures.user import UserRead
 from database.orm_models import User
 
-from loguru import logger
+import logging
 
 router = APIRouter()
 
@@ -23,9 +23,9 @@ async def create_user(session: Session = Depends(get_session)):
 
     :return: UserRead - the newly created user with the ID.
     """
+    logging.info(f"OLEG TEST")
     try:
         user = User()
-        logger.info(f"Created user with ID: {user.id}")
         session.add(user)
         session.commit()
         session.refresh(user)
