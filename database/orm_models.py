@@ -14,7 +14,7 @@ class User(BaseORMModel):
     """
     __tablename__ = "users"
 
-    dialogues: list["Dialogue"] = relationship("Dialogue", back_populates="user")
+    dialogues = relationship("Dialogue", back_populates="user")
 
 
 class Character(BaseORMModel):
@@ -23,8 +23,8 @@ class Character(BaseORMModel):
     """
     __tablename__ = "characters"
 
-    name: str = Column(Text, nullable=False)
-    dialogues: list["Dialogue"] = relationship("Dialogue", back_populates="character")
+    name = Column(Text, nullable=False)
+    dialogues = relationship("Dialogue", back_populates="character")
 
 
 class Dialogue(BaseORMModel):
@@ -34,13 +34,13 @@ class Dialogue(BaseORMModel):
 
     __tablename__ = "dialogues"
 
-    messages: list["Message"] = relationship("Message", back_populates="dialogue")
+    messages = relationship("Message", back_populates="dialogue")
 
-    user_id: uuid.UUID = Column(ForeignKey(User.id), nullable=False, index=True)
-    user: User = relationship(User, back_populates="dialogues")
+    user_id = Column(ForeignKey(User.id), nullable=False, index=True)
+    user = relationship(User, back_populates="dialogues")
 
-    character_id: uuid.UUID = Column(ForeignKey(Character.id), nullable=False, index=True)
-    character: Character = relationship(Character, back_populates="dialogues")
+    character_id = Column(ForeignKey(Character.id), nullable=False, index=True)
+    character = relationship(Character, back_populates="dialogues")
 
 
 class Message(BaseORMModel):
@@ -49,7 +49,7 @@ class Message(BaseORMModel):
     """
     __tablename__ = "messages"
 
-    content: str | None = Column(Text)
+    content = Column(Text)
 
-    dialogue_id: uuid.UUID = Column(ForeignKey(Dialogue.id), nullable=False, index=True)
-    dialogue: Dialogue = relationship(Dialogue, back_populates="messages")
+    dialogue_id = Column(ForeignKey(Dialogue.id), nullable=False, index=True)
+    dialogue = relationship(Dialogue, back_populates="messages")
