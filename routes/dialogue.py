@@ -52,7 +52,7 @@ async def create_or_read_dialogue(dialogue_create: DialogueCreate, session: Asyn
                     Dialogue.character_id == dialogue_create.character_id
                 )
             )
-        ).scalar_one_or_none()
+        ).unique().scalar_one_or_none()
         logging.info("OLEG dialogue: %s", dialogue)
         if dialogue:
             # Dialogue already exists, return its information

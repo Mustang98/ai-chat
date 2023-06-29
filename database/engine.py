@@ -14,7 +14,7 @@ database_url = os.environ.get("DATABASE_URL")
 engine = create_async_engine(database_url, echo=True, future=True)
 
 # Creating the async session maker
-session_maker = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
+async_session = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
 
 async def get_session() -> AsyncSession:
@@ -22,7 +22,7 @@ async def get_session() -> AsyncSession:
     Function to provide a database session
     :return: AsyncSession
     """
-    async with session_maker() as session:
+    async with async_session() as session:
         try:
             yield session
             await session.commit()
