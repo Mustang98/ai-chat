@@ -1,10 +1,12 @@
-angular.module('characterApp', [])
-  .controller('characterController', function($scope, $http) {
+angular.module('myApp', [])
+  .controller('CharacterController', function($scope, $http) {
+    // Make a GET request to the API to fetch characters
     $http.get('http://35.193.20.238:8000/characters')
       .then(function(response) {
+        // Assign the characters to the $scope variable
         $scope.characters = response.data.characters;
       })
       .catch(function(error) {
-        console.error('Error:', error);
+        console.log('Error:', error);
       });
   });
