@@ -5,32 +5,48 @@
   <title>Character List</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="styles.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
 </head>
-<body>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-lg-4 col-md-4 col-sm-12 characters-container">
-        <h1>Character List</h1>
-        <div ng-repeat="character in characters" ng-click="selectCharacter(character)" ng-class="{ 'active': selectedCharacter === character }" class="col-lg-4 col-md-6">
-          <div class="card mb-4">
-            <div class="card-body">
-              <h5 class="card-title">{{ character.name }}</h5>
+<body ng-app="myApp">
+<div ng-controller="CharacterController" class="container">
+  <div class="row">
+    <div class="col-lg-4">
+      <h1 class="mb-4">Characters</h1>
+      <div class="list-group">
+        <button
+          ng-repeat="character in characters"
+          ng-click="selectCharacter(character)"
+          ng-class="{ 'active': selectedCharacter === character }"
+          class="list-group-item list-group-item-action"
+        >
+          {{ character.name }}
+        </button>
+      </div>
+    </div>
+    <div class="col-lg-8">
+      <div class="col-lg-8 col-md-8 col-sm-12 dialogue-container">
+        <h1 id="dialog_title">Dialogue with {{selectedCharacter.name}}</h1>
+        <div class="messages-container">
+          <div ng-repeat="message in messages.messages" class="message">
+            <div ng-if="message.sender_type === 'user'" class="user-message">
+              {{ message.content }}
+            </div>
+            <div ng-if="message.sender_type === 'bot'" class="character-message">
+              {{ message.content }}
             </div>
           </div>
         </div>
-
-      </div>
-      <div class="col-lg-8 col-md-8 col-sm-12 dialogue-container">
-        <div ng-if="selectedCharacter">
-          <h2>{{ selectedCharacter.name }}</h2>
-          <div ng-repeat="message in selectedCharacter.messages" class="message">{{ message.content }}</div>
+        <div class="input-container">
+          <input type="text" ng-model="newMessage" placeholder="Type your message" class="form-control">
+          <button ng-click="sendMessage()" class="btn btn-primary">Send</button>
         </div>
-        <div ng-if="!selectedCharacter" class="no-character-selected">No character selected</div>
       </div>
     </div>
   </div>
+</div>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.min.js"></script>
   <script src="app.js"></script>
 </body>
