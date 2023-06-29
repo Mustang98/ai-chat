@@ -4,6 +4,7 @@ DB engine and session management
 import os
 
 import sqlalchemy
+from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.orm import sessionmaker
 
@@ -14,10 +15,10 @@ database_url = os.environ.get("DATABASE_URL")
 engine = create_async_engine(database_url, echo=True, future=True)
 
 # Creating the async session maker
-session_maker = sessionmaker(engine, class_=sqlalchemy.orm.AsyncSession, expire_on_commit=False)
+session_maker = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
 
-async def get_session() -> sqlalchemy.orm.AsyncSession:
+async def get_session() -> AsyncSession:
     """
     Function to provide a database session
     :return: AsyncSession
