@@ -2,9 +2,9 @@ import os
 import logging
 
 from fastapi import FastAPI
-from routes import user
-from routes import character
-from routes import dialogue
+from routes import users
+from routes import characters
+from routes import dialogues
 
 logging.basicConfig(level=logging.DEBUG)
 

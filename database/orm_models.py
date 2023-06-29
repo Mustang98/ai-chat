@@ -53,3 +53,4 @@ class Message(BaseORMModel):
 
     dialogue_id = Column(ForeignKey(Dialogue.id), nullable=False, index=True)
     dialogue = relationship(Dialogue, back_populates="messages")
+    sender_type = Column(Text)

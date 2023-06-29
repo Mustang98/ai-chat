@@ -16,7 +16,7 @@ from structures.message import MessageRead
 router = APIRouter()
 
 
-@router.post("/dialogue", response_model=DialogueRead)
+@router.post("/dialogues", response_model=DialogueRead)
 async def create_or_read_dialogue(dialogue_create: DialogueCreate, session: AsyncSession = Depends(get_session)) -> DialogueRead:
     """
     Create a new dialogue or return an existing one.
