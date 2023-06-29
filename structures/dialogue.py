@@ -2,7 +2,7 @@
 Pydantic CRUD structure(s) for Dialogue entity.
 """
 from pydantic import BaseModel, UUID4
-from message import MessageRead
+from structures.message import MessageRead
 
 
 class DialogueCreate(BaseModel):
