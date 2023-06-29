@@ -26,6 +26,7 @@ angular.module('myApp', [])
         $http.get('http://35.193.20.238:8000/characters')
             .then(function (response) {
                 $scope.characters = response.data.characters;
+                $scope.selectCharacter($scope.characters[0])
             })
             .catch(function (error) {
                 console.log(error);
@@ -96,7 +97,7 @@ angular.module('myApp', [])
                 });
         };
 
-        $scope.selectCharacter($scope.characters[0])
+
     });
 
 
