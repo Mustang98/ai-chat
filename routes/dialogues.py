@@ -51,11 +51,11 @@ async def create_or_read_dialogue(dialogue_create: DialogueCreate, session: Asyn
                     Dialogue.user_id == dialogue_create.user_id,
                     Dialogue.character_id == dialogue_create.character_id
                 )
-                .order_by(Message.created_at)
             )
         ).unique().scalar_one_or_none()
         logging.info("OLEG dialogue: %s", dialogue)
         if dialogue:
+            dialogue.messages.sort(key=lambda message: message.created_at)
             # Dialogue already exists, return its information
             return DialogueRead(
                 id=dialogue.id,
