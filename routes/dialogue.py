@@ -33,7 +33,8 @@ async def create_or_read_dialogue(dialogue_create: DialogueCreate, session: Asyn
                 status_code=400,
                 detail=f"User with id={dialogue_create.user_id} doesn't exist",
             )
-
+        print("OLEG PRINT TEST")
+        logging.info("OLEG PRINT TEST LOGGING")
         # Check if the character exists
         character = await session.get(Character, dialogue_create.character_id)
         if character is None:
