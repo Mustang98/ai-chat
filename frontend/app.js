@@ -38,7 +38,7 @@ angular.module('myApp', [])
         $scope.selectCharacter = function (character) {
             $scope.selectedCharacter = character;
             var dialogueData = {
-                user_id: current_user_id, // Replace with the actual user ID
+                user_id: userId, // Replace with the actual user ID
                 character_id: character.id
             };
 
