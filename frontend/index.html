@@ -27,7 +27,7 @@
       <div class="col-lg-8 col-md-8 col-sm-12 dialogue-container">
         <h1 id="dialog_title">Dialogue with {{selectedCharacter.name}}</h1>
         <div class="messages-container">
-          <div ng-repeat="message in messages.messages" class="message">
+          <div ng-repeat="message in messages" class="message">
             <div ng-if="message.sender_type === 'user'" class="user-message">
               {{ message.content }}
             </div>

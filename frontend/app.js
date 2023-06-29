@@ -43,30 +43,7 @@ angular.module('myApp', [])
             $http.post('http://35.193.20.238:8000/dialogues', dialogueData)
                 .then(function (response) {
                     // Update the messages in the dialogue section
-                    // $scope.messages = response.data.messages;
-                    $scope.messages = {
-                "id": "3a9f1312-93fb-4663-ba0c-5fd15a77b941", "messages": [{
-                    "id": "4d7b29b7-d7cb-43d3-a209-88bcfb4d1659",
-                    "content": "This is a new message",
-                    "sender_type": "user"
-                }, {
-                    "id": "9ed7bb28-c23c-4f71-aa8a-ad432d461d9f",
-                    "content": "This is a new message",
-                    "sender_type": "user"
-                }, {
-                    "id": "1e8ca516-6001-44cd-bd5d-9c38e6e03838",
-                    "content": "I agree that This is a new message",
-                    "sender_type": "bot"
-                }, {
-                    "id": "fde13c99-67ef-4c75-a9bb-65d1ccf3df04",
-                    "content": "This is a new message2",
-                    "sender_type": "user"
-                }, {
-                    "id": "ce930550-8605-4be5-b32e-bd1254dff2d6",
-                    "content": "I agree that This is a new message2",
-                    "sender_type": "bot"
-                }]
-            }
+                    $scope.messages = response.data.messages;
                     $scope.dialogue = response.data;
                 })
                 .catch(function (error) {
