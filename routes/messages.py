@@ -8,6 +8,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from structures.message import MessageCreate, MessageRead
 from database.engine import get_session
 from database.orm_models import Dialogue, Message
+from clients.openai_client import generate_response
 
 router = APIRouter()
 
@@ -29,13 +30,14 @@ async def create_message(message: MessageCreate, session: AsyncSession = Depends
                 status_code=400,
                 detail=f"Dialogue with id={message.dialogue_id} doesn't exist",
             )
+
         # Save user message to database
         user_message_orm = Message(content=message.content, dialogue_id=message.dialogue_id, sender_type="user")
         session.add(user_message_orm)
         await session.commit()
 
         # Generate bot reply
-        bot_reply_content = "I agree that " + message.content
+        bot_reply_content = generate_response(message.content, dialogue.character.name)
         bot_message_orm = Message(content=bot_reply_content, dialogue_id=message.dialogue_id, sender_type="bot")
         session.add(bot_message_orm)
         await session.commit()
