@@ -10,6 +10,7 @@ class MessageRead(BaseModel):
     """
     id: UUID4
     content: str
+    sender_type: str
 
 
 class MessageCreate(BaseModel):

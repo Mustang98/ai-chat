@@ -40,7 +40,7 @@ async def create_message(message: MessageCreate, session: AsyncSession = Depends
         session.add(bot_message_orm)
         await session.commit()
 
-        return MessageRead(id=bot_message_orm.id, content=bot_message_orm.content)
+        return MessageRead(id=bot_message_orm.id, content=bot_message_orm.content, sender_type=bot_message_orm.sender_type)
 
     except SQLAlchemyError:
         await session.rollback()

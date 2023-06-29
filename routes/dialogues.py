@@ -9,7 +9,7 @@ from sqlalchemy.orm import joinedload
 import logging
 
 from database.engine import get_session
-from database.orm_models import Dialogue, User, Character
+from database.orm_models import Dialogue, User, Character, Message
 from structures.dialogue import DialogueCreate, DialogueRead
 from structures.message import MessageRead
 
@@ -51,6 +51,7 @@ async def create_or_read_dialogue(dialogue_create: DialogueCreate, session: Asyn
                     Dialogue.user_id == dialogue_create.user_id,
                     Dialogue.character_id == dialogue_create.character_id
                 )
+                .order_by(Message.created_at)
             )
         ).unique().scalar_one_or_none()
         logging.info("OLEG dialogue: %s", dialogue)
@@ -59,7 +60,7 @@ async def create_or_read_dialogue(dialogue_create: DialogueCreate, session: Asyn
             return DialogueRead(
                 id=dialogue.id,
                 messages=[
-                    MessageRead(id=message.id, content=message.content)
+                    MessageRead(id=message.id, content=message.content, sender_type=message.sender_type)
                     for message in dialogue.messages
                 ]
             )
