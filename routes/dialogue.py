@@ -5,6 +5,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
+from sqlalchemy.orm import joinedload
 import logging
 
 from database.engine import get_session
@@ -33,8 +34,6 @@ async def create_or_read_dialogue(dialogue_create: DialogueCreate, session: Asyn
                 status_code=400,
                 detail=f"User with id={dialogue_create.user_id} doesn't exist",
             )
-        print("OLEG PRINT TEST")
-        logging.info("OLEG PRINT TEST LOGGING")
         # Check if the character exists
         character = await session.get(Character, dialogue_create.character_id)
         if character is None:
@@ -46,7 +45,9 @@ async def create_or_read_dialogue(dialogue_create: DialogueCreate, session: Asyn
         # Check if the dialogue already exists
         dialogue = (
             await session.execute(
-                select(Dialogue).where(
+                select(Dialogue)
+                .options(joinedload(Dialogue.messages))
+                .where(
                     Dialogue.user_id == dialogue_create.user_id,
                     Dialogue.character_id == dialogue_create.character_id
                 )
