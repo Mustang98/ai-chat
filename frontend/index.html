@@ -6,21 +6,25 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <div class="container-fluid">
+<body ng-controller="myController">
+
+  <div class="container">
     <div class="row">
       <div class="col-lg-4 col-md-4 col-sm-12 characters-container">
         <h1>Character List</h1>
         <ul class="list-group">
-          <li ng-repeat="character in characters" ng-click="selectCharacter(character)" ng-class="{ 'active': selectedCharacter === character }" class="list-group-item">{{ character.name }}</li>
+          <li ng-repeat="character in characters" ng-click="selectCharacter(character)"
+            ng-class="{ 'active': selectedCharacter === character }" class="list-group-item">{{ character.name }}</li>
         </ul>
       </div>
       <div class="col-lg-8 col-md-8 col-sm-12 dialogue-container">
-        <div ng-if="selectedCharacter">
-          <h2>{{ selectedCharacter.name }}</h2>
-          <div ng-repeat="message in selectedCharacter.messages" class="message">{{ message.content }}</div>
+        <h1>Dialogue</h1>
+        <div class="dialogue">
+          <div class="message" ng-repeat="message in selectedCharacter.dialogue">
+            <div class="sender" ng-class="{ 'user': message.sender_type === 'user' }">{{ message.sender_type }}</div>
+            <div class="content">{{ message.content }}</div>
+          </div>
         </div>
-        <div ng-if="!selectedCharacter" class="no-character-selected">No character selected</div>
       </div>
     </div>
   </div>
