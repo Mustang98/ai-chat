@@ -5,6 +5,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
+import logging
 
 from database.engine import get_session
 from database.orm_models import Dialogue, User, Character
@@ -50,7 +51,7 @@ async def create_or_read_dialogue(dialogue_create: DialogueCreate, session: Asyn
                 )
             )
         ).scalar_one_or_none()
-
+        logging.info("OLEG dialogue: %s", dialogue)
         if dialogue:
             # Dialogue already exists, return its information
             return DialogueRead(
