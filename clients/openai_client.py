@@ -18,6 +18,6 @@ def generate_response(user_message: str, character_name: str):
     """
     prompt = f"Friend and {character_name} are talking. Friend says: {user_message}\n{character_name} says:"
     response = openai.Completion.create(
-        engine="text-davinci-003", prompt=prompt
+        engine="text-davinci-003", prompt=prompt, max_tokens=50
     )
     return response.choices[0].text
