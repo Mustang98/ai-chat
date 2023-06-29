@@ -9,17 +9,21 @@ h1 {
   color: #333;
 }
 
-.character-block {
-  padding: 20px;
-  margin-bottom: 20px;
+.card {
   background-color: #fff;
-  border-radius: 5px;
+  border: none;
+  border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
 }
 
-.character-block h2 {
+.card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
   color: #333;
   font-size: 20px;
-  margin-top: 0;
-  margin-bottom: 10px;
+  margin: 0;
+  padding: 10px;
 }
