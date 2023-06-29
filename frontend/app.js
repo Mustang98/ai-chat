@@ -1,19 +1,20 @@
-angular.module('myApp', [])
-  .controller('CharacterController', function($scope, $http) {
-    $scope.characters = [];
-    $scope.selectedCharacter = null;
+var app = angular.module('myApp', []);
 
-    // Make a GET request to the API to fetch characters
-    $http.get('http://35.193.20.238:8000/characters')
-      .then(function(response) {
-        // Assign the characters to the $scope variable
-        $scope.characters = response.data.characters;
-      })
-      .catch(function(error) {
-        console.log('Error:', error);
-      });
+app.controller('myCtrl', function($scope, $http) {
+  // Initialize characters array
+  $scope.characters = [];
 
-    $scope.selectCharacter = function(character) {
-      $scope.selectedCharacter = character;
-    };
-  });
+  // Fetch characters from API
+  $http.get('http://35.193.20.238:8000/characters')
+    .then(function(response) {
+      $scope.characters = response.data.characters;
+    })
+    .catch(function(error) {
+      console.log('Error fetching characters:', error);
+    });
+
+  // Select character
+  $scope.selectCharacter = function(character) {
+    $scope.selectedCharacter = character;
+  };
+});
