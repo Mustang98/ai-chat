@@ -7,7 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import SQLAlchemyError
 from structures.message import MessageCreate, MessageRead
 from database.engine import get_session
-from database.orm_models import Dialogue, Message
+from database.orm_models import Dialogue, Message, Character
 from clients.openai_client import generate_response
 
 router = APIRouter()
@@ -36,8 +36,9 @@ async def create_message(message: MessageCreate, session: AsyncSession = Depends
         session.add(user_message_orm)
         await session.commit()
 
+        character = await session.get(Character, dialogue.character_id)
         # Generate bot reply
-        bot_reply_content = generate_response(message.content, "Ariana")
+        bot_reply_content = generate_response(message.content, character.name)
         bot_message_orm = Message(content=bot_reply_content, dialogue_id=message.dialogue_id, sender_type="bot")
         session.add(bot_message_orm)
         await session.commit()
