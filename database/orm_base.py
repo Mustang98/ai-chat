@@ -44,7 +44,7 @@ class BaseORMModel(Base):
     __tablename__: str
     metadata: ClassVar[MetaData]
 
-    id: uuid.UUID = Column(
+    id = Column(
         UUID(as_uuid=True), primary_key=True, default=uuid4, server_default=func.gen_random_uuid()
     )
     created_at: datetime = Column(
