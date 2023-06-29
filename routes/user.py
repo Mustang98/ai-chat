@@ -21,9 +21,15 @@ async def create_user(session: AsyncSession = Depends(get_session)) -> UserRead:
 
     :return: UserRead - the newly created user with the ID.
     """
-
-    user = User()
-    session.add(user)
-    await session.commit()
-    await session.refresh(user)
-    return UserRead(id=user.id)
+    try:
+        user = User()
+        session.add(user)
+        await session.commit()
+        await session.refresh(user)
+        return UserRead(id=user.id)
+    except SQLAlchemyError:
+        await session.rollback()
+        raise HTTPException(
+            status_code=400,
+            detail="Database error while creating new user",
+        )
