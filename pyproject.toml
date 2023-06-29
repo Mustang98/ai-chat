@@ -13,6 +13,7 @@ sqlalchemy = "^2.0.17"
 asyncpg = "^0.27.0"
 alembic = "^1.11.1"
 sqlalchemy-utils = "^0.41.1"
+loguru = "^0.7.0"
 
 
 [build-system]

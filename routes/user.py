@@ -9,6 +9,8 @@ from database.engine import get_session
 from structures.user import UserRead
 from database.orm_models import User
 
+from loguru import logger
+
 router = APIRouter()
 
 
@@ -23,6 +25,7 @@ async def create_user(session: Session = Depends(get_session)):
     """
     try:
         user = User()
+        logger.info(f"Created user with ID: {user.id}")
         session.add(user)
         session.commit()
         session.refresh(user)
