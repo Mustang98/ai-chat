@@ -20,4 +20,4 @@ app.mount("/", StaticFiles(directory="frontend"), name="static")
 # Serve the index.html file as the root path
 @app.get("/", response_class=HTMLResponse)
 async def get_index():
-    return open("static/index.html").read()
+    return open("frontend/index.html").read()
