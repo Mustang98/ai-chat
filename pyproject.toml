@@ -11,7 +11,6 @@ fastapi = "^0.98.0"
 uvicorn = "^0.22.0"
 sqlalchemy = "^2.0.17"
 asyncpg = "^0.27.0"
-aiopg = "^1.4.0"
 alembic = "^1.11.1"
 sqlalchemy-utils = "^0.41.1"
 
