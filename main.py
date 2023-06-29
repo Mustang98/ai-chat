@@ -3,6 +3,7 @@ import logging
 
 from fastapi import FastAPI
 from routes import users, characters, dialogues, messages
+from fastapi.staticfiles import StaticFiles
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -12,3 +13,4 @@ app.include_router(characters.router)
 app.include_router(dialogues.router)
 app.include_router(messages.router)
 
+app.mount("/", StaticFiles(directory="frontend"), name="static")
