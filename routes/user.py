@@ -3,7 +3,7 @@ Endpoints for user related operations.
 """
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.exc import IntegrityError
-from sqlalchemy.orm import Session
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from database.engine import get_session
 from structures.user import UserRead
@@ -15,7 +15,7 @@ router = APIRouter()
 
 
 @router.post("/users", response_model=UserRead, status_code=200, summary="Create a new user")
-async def create_user(session: Session = Depends(get_session)):
+async def create_user(session: AsyncSession = Depends(get_session)):
     """
     Create a new user with the provided user data.
 
@@ -27,8 +27,8 @@ async def create_user(session: Session = Depends(get_session)):
     try:
         user = User()
         session.add(user)
-        session.commit()
-        session.refresh(user)
+        await session.commit()
+        await session.refresh(user)
         return UserRead(id=user.id)
     except IntegrityError:
         raise HTTPException(
