@@ -4,15 +4,12 @@ Endpoints for messages related operations.
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.exc import SQLAlchemyError
 from structures.message import MessageCreate, MessageRead
 from database.engine import get_session
 from database.orm_models import Dialogue, Message
 
 router = APIRouter()
-
-
-class SQLAlchemyError:
-    pass
 
 
 @router.post("/messages", response_model=MessageRead)
