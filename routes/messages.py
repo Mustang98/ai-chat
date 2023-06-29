@@ -37,7 +37,7 @@ async def create_message(message: MessageCreate, session: AsyncSession = Depends
         # Generate bot reply
         bot_reply_content = "I agree that " + message.content
         bot_message_orm = Message(content=bot_reply_content, dialogue_id=message.dialogue_id, sender_type="bot")
-        session.add(user_message_orm)
+        session.add(bot_message_orm)
         await session.commit()
 
         return MessageRead(id=bot_message_orm.id, content=bot_message_orm.content)
