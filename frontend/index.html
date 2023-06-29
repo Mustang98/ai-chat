@@ -5,21 +5,13 @@
   <title>Character List</title>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
   <script src="app.js"></script>
-  <style>
-    .character-block {
-      padding: 10px;
-      margin-bottom: 10px;
-      background-color: #f1f1f1;
-      border-radius: 5px;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div ng-controller="CharacterController">
     <h1>Character List</h1>
     <div ng-repeat="character in characters" class="character-block">
       <h2>{{ character.name }}</h2>
-      <p>ID: {{ character.id }}</p>
     </div>
   </div>
 </body>
