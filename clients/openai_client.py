@@ -3,8 +3,9 @@ This file contains the OpenAI client.
 """
 import os
 import openai
+from main import env_vars
 
-openai.api_key = str(os.environ.get("OPENAI_KEY"))
+openai.api_key = env_vars.get("OPENAI_KEY")
 
 
 def generate_response(user_message: str, character_name: str):
