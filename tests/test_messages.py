@@ -3,11 +3,13 @@ This file contains the tests for the REST API routes.
 """
 from fastapi.testclient import TestClient
 from main import app
+import pytest
 
 client = TestClient(app)
 
 
-def test_create_message():
+@pytest.mark.asyncio
+async def test_create_message():
     """
     Test POST /messages endpoint.
 
@@ -23,3 +25,4 @@ def test_create_message():
     assert "content" in data
     assert "sender_type" in data
     assert data["sender_type"] == "bot"
+s

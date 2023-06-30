@@ -3,11 +3,13 @@ This file contains the tests for the REST API routes.
 """
 from fastapi.testclient import TestClient
 from main import app
+import pytest
 
 client = TestClient(app)
 
 
-def test_get_characters():
+@pytest.mark.asyncio
+async def test_get_characters():
     """
     Test GET /characters endpoint.
 
