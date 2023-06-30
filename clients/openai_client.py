@@ -1,11 +1,10 @@
 """
 This file contains the OpenAI client.
 """
-import os
+from dotenv import dotenv_values
 import openai
-from main import env_vars
 
-openai.api_key = env_vars.get("OPENAI_KEY")
+openai.api_key = dotenv_values(".env").get("OPENAI_KEY")
 
 
 def generate_response(user_message: str, character_name: str):

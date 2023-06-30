@@ -1,15 +1,13 @@
 """
 DB engine and session management
 """
-import os
-
+from dotenv import dotenv_values
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.orm import sessionmaker
-from main import env_vars
 
 # Database URL
-database_url = env_vars.get("DATABASE_URL")
+database_url = dotenv_values(".env").get("DATABASE_URL")
 
 # Creating the async SQLAlchemy engine
 engine = create_async_engine(database_url, echo=True, future=True)
