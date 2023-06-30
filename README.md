@@ -54,6 +54,8 @@ Dependency management is conducted by `poetry`.
 
 For the dialogue engine, the server uses OpenAI API with the DaVinci-3 model.
 
+`pytest` and `pytest-asyncio` libraries are used to run tests on project components.
+
 
 
 ## Project Structure
@@ -65,6 +67,7 @@ The project follows the following directory structure:
 - `/migrations`: Contains database migration scripts.
 - `/routes`: Contains REST API endpoints and handlers.
 - `/structures`: Contains Pydantic structures for CRUD operations via REST API.
+- `/tests`: Contains `pytest` tests for endpoints.
 - `.env`: `python-dotenv` file containing necessary environment variables.
 - `Dockerfile`: Dockerfile for containerizing the application.
 - `alembic.ini`: Configuration file for Alembic database migration tool.
