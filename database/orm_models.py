@@ -6,6 +6,7 @@ import uuid
 from sqlalchemy import Column, Text, ForeignKey
 from sqlalchemy.orm import relationship
 from database.orm_base import BaseORMModel
+from sqlalchemy import Index
 
 
 class User(BaseORMModel):
@@ -54,3 +55,7 @@ class Message(BaseORMModel):
     dialogue_id = Column(ForeignKey(Dialogue.id), nullable=False, index=True)
     dialogue = relationship(Dialogue, back_populates="messages")
     sender_type = Column(Text)
+
+    __table_args__ = (
+        Index("ix_messages_dialogue_id_sender_type_created_at", "dialogue_id", "sender_type", "created_at"),
+    )
