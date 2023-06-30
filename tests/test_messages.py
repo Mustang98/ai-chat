@@ -25,4 +25,3 @@ async def test_create_message():
     assert "content" in data
     assert "sender_type" in data
     assert data["sender_type"] == "bot"
-s
