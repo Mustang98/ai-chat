@@ -19,8 +19,3 @@ app.mount("/frontend", StaticFiles(directory="frontend"), name="frontend")
 @app.get("/", response_class=HTMLResponse)
 async def get_index():
     return open("frontend/index.html").read()
-
-"""
-Client-server interaction is done via REST API. Server provides following endpoints:
-
-"""
